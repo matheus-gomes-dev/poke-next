@@ -17,13 +17,14 @@
 }
 
 .logoContainer {
-  width: 195px;
+  width: 150px;
   height: 50px;
   color: white;
   font-size: 2em;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .navigationContainer {
@@ -33,17 +34,56 @@
   font-size: 1.3em;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   list-style: none;
 }
 
 .navigationContainer li {
   transition: 0.4s;
   border-bottom: 2px solid transparent;
+  margin: 5px;
 }
 
 .navigationContainer li:hover {
   border-color: white;
+}
+
+.searchBar {
+  width: 250px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBar input {
+  padding: 6px 20px;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .logoContainer {
+    width: 50px;
+  }
+  .logoContainer > div {
+    display: none;
+  }
+
+  .searchBar {
+    width: 33%;
+    min-width: 150px;
+  }
+
+  .searchBar input {
+    padding: 6px 6px;
+    width: 100%;
+  }
+
+  .navigationContainer {
+    width: 33%;
+    min-width: 80px;
+    font-size: 3.2vw;
+  }
 }
 
 /* .type_normal {
