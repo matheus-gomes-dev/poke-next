@@ -49,15 +49,18 @@ export default function Home({ pokemons }: IHomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        {pokemons.map(pokemon => (
-          <Card
-            key={pokemon.id}
-            name={pokemon.name}
-            imageUrl={pokemon.imageUrl}
-            animationUrl={pokemon.animationUrl}
-            id={pokemon.id}
-          />
-        ))}
+        <div className={styles.contentWrapper}>
+          {pokemons.map(pokemon => (
+            <div className={styles.cardWrapper} key={pokemon.id}>
+              <Card
+                name={pokemon.name}
+                imageUrl={pokemon.imageUrl}
+                animationUrl={pokemon.animationUrl}
+                id={pokemon.id}
+              />
+            </div>
+          ))}
+        </div>
       </main>
     </>
   )
