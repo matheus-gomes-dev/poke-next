@@ -1,6 +1,39 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import Card from '@/components/Card';
+import { IPokemonGenericInformation } from '@/types';
+
+// export async function getStaticPaths() {
+
+  // no need to call api under pokemon details page: we know how many pokemons there are!
+  // const paths = [1, 2, 3, ..., 666].map((number) => ({
+    //   params: { id: number },
+    // }))
+  // this will do!
+
+  // // Call an external API endpoint to get posts
+  // const res = await fetch('https://.../posts')
+  // const posts = await res.json()
+ 
+  // // Get the paths we want to pre-render based on posts
+  // const paths = posts.map((post) => ({
+  //   params: { id: post.id },
+  // }))
+ 
+  // // We'll pre-render only these paths at build time.
+  // // { fallback: false } means other routes should 404.
+  // return { paths, fallback: false }
+// }
+
+export async function getStaticProps() {
+  const response = await fetch(`${process.env.LOCAL_API_URL}/getPokemons?offset=0&limit=150`);
+  const pokemons = await response.json() as IPokemonGenericInformation[];
+  return {
+    props: {
+      pokemons,
+    },
+  };
+}
 
 export default function Home() {
   return (
