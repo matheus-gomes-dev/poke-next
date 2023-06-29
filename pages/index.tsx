@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
 import Card from '@/components/Card';
 import { IPokemonGenericInformation } from '@/types';
+import { fetchPokemons } from '@/utils';
 
 interface IHomeProps {
   pokemons: IPokemonGenericInformation[];
@@ -30,8 +31,7 @@ interface IHomeProps {
 // }
 
 export async function getStaticProps() {
-  const response = await fetch(`${process.env.LOCAL_API_URL}/getPokemons?offset=0&limit=150`);
-  const pokemons = await response.json() as IPokemonGenericInformation[];
+  const pokemons = await fetchPokemons(0, 150);
   return {
     props: {
       pokemons,

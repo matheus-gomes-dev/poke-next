@@ -1,4 +1,4 @@
-import { IPokemonGenericResult, IPokemonGenericInformation } from "@/types";
+import { IPokemonGenericResult, IPokemonGenericInformation, IGetPokemonsResponse } from "@/types";
 
 // const API_POKEMON_COUNT = 1281;
 // const MAX_LIMIT = 649; // with image and gif
@@ -19,3 +19,10 @@ export const mapPokemonInformation = (
     animationUrl,
   });
 };
+
+export const fetchPokemons = async (offset: number, limit = 60) => {
+  const apiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon?offset=${offset}&limit=${limit}`);
+  const response = await apiResponse.json() as IGetPokemonsResponse;
+  const pokemons = response.results.map(mapPokemonInformation);
+  return pokemons;
+}
