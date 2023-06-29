@@ -3,6 +3,10 @@ import styles from '@/styles/Home.module.css';
 import Card from '@/components/Card';
 import { IPokemonGenericInformation } from '@/types';
 
+interface IHomeProps {
+  pokemons: IPokemonGenericInformation[];
+}
+
 // export async function getStaticPaths() {
 
   // no need to call api under pokemon details page: we know how many pokemons there are!
@@ -35,7 +39,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home() {
+export default function Home({ pokemons }: IHomeProps) {
   return (
     <>
       <Head>
@@ -45,7 +49,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <Card />
+        {pokemons.map(pokemon => (
+          <Card
+            key={pokemon.id}
+            name={pokemon.name}
+            imageUrl={pokemon.imageUrl}
+            animationUrl={pokemon.animationUrl}
+            id={pokemon.id}
+          />
+        ))}
       </main>
     </>
   )

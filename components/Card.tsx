@@ -2,17 +2,24 @@ import React from 'react';
 import styles from '@/styles/components/Card.module.css';
 import Image from 'next/image';
 
-const Card = (): React.ReactElement => (
+interface ICardProps {
+  name: string;
+  id: number;
+  imageUrl: string;
+  animationUrl: string;
+};
+
+const Card = ({ name, id, imageUrl, animationUrl }: ICardProps): React.ReactElement => (
   <article className={styles.cardContainer}>
     <div className={styles.contentWrapper}>
       <div className={styles.pokemonNumber}>
         <div>
-          <span>#9</span>
+          <span>{`#${id}`}</span>
         </div>
       </div>
       <div className={styles.pokemonImage}>
         <Image
-          src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/001.png"
+          src={imageUrl}
           width={170}
           height={170}
           alt='pokémon image'
@@ -20,11 +27,11 @@ const Card = (): React.ReactElement => (
       </div>
       <div className={styles.footer}>
         <div className="pokemonName">
-          Bulbasaur
+          {name}
         </div>
         <div className="pokemonAnimated">
           <Image
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+            src={animationUrl}
             width={50}
             height={50}
             alt='pokémon animation'
