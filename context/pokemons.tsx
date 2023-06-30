@@ -2,7 +2,7 @@ import { IPokemonGenericInformation } from "@/types";
 import { fetchPokemons } from "@/utils";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
-interface IPokemonContext {
+export interface IPokemonContext {
   pokemons: IPokemonGenericInformation[];
   isLoading: boolean;
   loadMorePokemons: () => void;

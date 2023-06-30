@@ -2,7 +2,7 @@
   min-height: 100vh;
 }
 
-.contentWrapper {
+.mainContentWrapper {
   width: 60%;
   min-width: 350px;
   margin: auto;
@@ -14,4 +14,29 @@
 
 .cardWrapper {
   margin: 15px;
+}
+
+.buttonContainer {
+  margin: auto;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonContainer > button {
+  background-color: #FF1A20;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.buttonContainer > button:disabled {
+  background-color: #8c8485;
 }

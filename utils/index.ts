@@ -1,17 +1,19 @@
 import { IPokemonGenericResult, IPokemonGenericInformation, IGetPokemonsResponse } from "@/types";
+import { compact } from 'lodash';
 
 // const API_POKEMON_COUNT = 1281;
-// const MAX_LIMIT = 649; // with image and gif
-// const KNOWN_POKEMONS = 1010; // with valid api response
+const MAX_GIFS_LIMIT = 649;
+const MAX_IMAGES_LIMIT = 905;
 
 export const mapPokemonInformation = (
   pokemonInfo: IPokemonGenericResult,
   index: number,
 ): IPokemonGenericInformation => {
-  const id = index + 1;
+  const splittedPokemonUrl = compact(pokemonInfo.url.split('/'));
+  const id = Number(splittedPokemonUrl[splittedPokemonUrl.length - 1]);
   const threeDigitsId = ('000' + id).slice(-3);
   const imageUrl = `${process.env.POKEMON_IMAGES_URL}/${threeDigitsId}.png`;
-  const animationUrl = `${process.env.POKEMON_ANIMATED_GIF_URL}/${id}.gif`;
+  const animationUrl = id <= MAX_GIFS_LIMIT ? `${process.env.POKEMON_ANIMATED_GIF_URL}/${id}.gif` : imageUrl;
   return ({
     name: pokemonInfo.name,
     id,

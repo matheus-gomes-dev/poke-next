@@ -4,14 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 
-console.log(styles.headerContainer);
-
 const Header = (): React.ReactElement => {
   const [searchValue, setSearch] = React.useState<string>('');
   const router = useRouter();
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
-    console.log(event);
     if (event.key !== 'Enter') return;
     router.push(`search/${searchValue}`);
     setSearch('');
