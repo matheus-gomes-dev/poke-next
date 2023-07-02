@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '@/styles/components/Card.module.css';
 import Image from 'next/image';
+import PokemonId from './PokemonId';
 
 interface ICardProps {
   name: string;
@@ -12,10 +13,8 @@ interface ICardProps {
 const Card = ({ name, id, imageUrl, animationUrl }: ICardProps): React.ReactElement => (
   <article className={styles.cardContainer}>
     <div className={styles.contentWrapper}>
-      <div className={styles.pokemonNumber}>
-        <div>
-          <span>{`#${id}`}</span>
-        </div>
+      <div className={styles.pokemonNumberWrapper}>
+        <PokemonId id={id} />
       </div>
       <div className={styles.pokemonImage}>
         <Image

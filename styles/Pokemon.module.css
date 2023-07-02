@@ -1,8 +1,169 @@
 .main {
   min-height: 100vh;
+  color: white;
 }
 
 .mainContentWrapper {
-  border: 1px solid red;
-  margin-top: 150px;
+  background-color: black;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 30px;
+  width: 380px;
+  max-width: 100%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerContainer {
+  background-color: black;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: auto;
+  font-size: 2em;
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+.imageContainer {
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typesContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 15px;
+  width: 100%;
+  min-height: 80px;
+}
+
+.typesLabels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.typesLabels > div {
+  margin: 8px;
+  padding: 5px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.animationContainer {
+  margin-top: 25px;
+}
+
+.informationContainer {
+  height: 50px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.information:first-child {
+  border-right: 1px solid white;
+}
+
+.moves {
+  margin-top: 30px;
+  width: 90%;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+.type-normal {
+  background-color: #aa9;
+}
+
+.type-fire {
+  background-color: #f42;
+}
+
+.type-water {
+  background-color: #39f;
+}
+
+.type-eletric {
+  background-color: #fc3;
+}
+
+.type-grass {
+  background-color: #7c5;
+}
+
+.type-ice {
+  background-color: #6cf;
+}
+
+.type-fighting {
+  background-color: #b54;
+}
+
+.type-poison {
+  background-color: #a59;
+}
+
+.type-ground {
+  background-color: #db5;
+}
+
+.type-flying {
+  background-color: #89f;
+}
+
+.type-psychic {
+  background-color: #f59;
+}
+
+.type-bug {
+  background-color: #ab2;
+}
+
+.type-rock {
+  background-color: #ba6;
+}
+
+.type-ghost {
+  background-color: #66b;
+}
+
+.type-dragon {
+  background-color: #76e;
+}
+
+.type-dark {
+  background-color: #754;
+}
+
+.type-steel {
+  background-color: #aab;
+}
+
+.type-fairy {
+  background-color: #e9e;
+}
+
+.type-unknown, .type-shadow {
+  background-color: #3d3c38;
 }

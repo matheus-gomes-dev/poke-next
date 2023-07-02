@@ -20,24 +20,10 @@
   height: 95%;
 }
 
-.pokemonNumber {
+.pokemonNumberWrapper {
   display: flex;
   justify-content: flex-end;
 }
-
-.pokemonNumber > div {
-  height: 22px;
-  border-radius: 5px;
-  background-color: #FF1A20;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 14px;
-}
-
 .pokemonImage {
   display: flex;
   align-items: center;

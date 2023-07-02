@@ -47,7 +47,7 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
   const id = response.id;
   const { imageUrl, animationUrl } = getPokemonAssets(id);
   const moves = compact(response.moves.map((pokemonMove: IPokemonMove) => {
-    const pokemonKnowsMove = pokemonMove.version_group_details.some(item => item.level_learned_at > 0);
+    const pokemonKnowsMove = (pokemonMove.version_group_details ?? []).some(item => item.level_learned_at > 0);
     return pokemonKnowsMove ? pokemonMove.move.name : null;
   })) as string[];
   const details = {
@@ -57,7 +57,7 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
     animationUrl,
     weight: response.weight / 10,
     height: response.height * 10,
-    types: response.types.map((pokemonType: IPokemonType) => pokemonType.type.name),
+    types: (response.types ?? []).map((pokemonType: IPokemonType) => pokemonType.type.name),
     moves,
   };
   return details;
