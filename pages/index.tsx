@@ -4,35 +4,15 @@ import Card from '@/components/Card';
 import { IPokemonGenericInformation } from '@/types';
 import { fetchPokemons } from '@/utils';
 import { IPokemonContext, usePokemonContext } from '@/context/pokemons';
+import { useRouter } from 'next/router';
+import { NUMBER_OF_FIRST_GENERATION_POKEMONS } from '@/constants';
 
 interface IHomeProps {
   pokemons: IPokemonGenericInformation[];
 }
 
-// export async function getStaticPaths() {
-
-  // no need to call api under pokemon details page: we know how many pokemons there are!
-  // const paths = [1, 2, 3, ..., 666].map((number) => ({
-    //   params: { id: number },
-    // }))
-  // this will do!
-
-  // // Call an external API endpoint to get posts
-  // const res = await fetch('https://.../posts')
-  // const posts = await res.json()
- 
-  // // Get the paths we want to pre-render based on posts
-  // const paths = posts.map((post) => ({
-  //   params: { id: post.id },
-  // }))
- 
-  // // We'll pre-render only these paths at build time.
-  // // { fallback: false } means other routes should 404.
-  // return { paths, fallback: false }
-// }
-
 export async function getStaticProps() {
-  const pokemons = await fetchPokemons(0, 150);
+  const pokemons = await fetchPokemons(0, NUMBER_OF_FIRST_GENERATION_POKEMONS);
   return {
     props: {
       pokemons,
@@ -42,6 +22,7 @@ export async function getStaticProps() {
 
 export default function Home({ pokemons }: IHomeProps) {
   const { pokemons: newPokemons, isLoading, loadMorePokemons } = usePokemonContext() as IPokemonContext;
+  const router = useRouter();
   const pokemonsList = [...pokemons, ...newPokemons];
   return (
     <>
@@ -54,7 +35,11 @@ export default function Home({ pokemons }: IHomeProps) {
       <main className={`${styles.main}`}>
         <div className={styles.mainContentWrapper}>
           {pokemonsList.map(pokemon => (
-            <div className={styles.cardWrapper} key={pokemon.id}>
+            <div
+              className={styles.cardWrapper}
+              key={pokemon.id}
+              onClick={() => router.push(`/pokemon/${pokemon.id}`)}
+            >
               <Card
                 name={pokemon.name}
                 imageUrl={pokemon.imageUrl}

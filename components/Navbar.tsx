@@ -10,7 +10,7 @@ const Header = (): React.ReactElement => {
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key !== 'Enter') return;
-    router.push(`search/${searchValue}`);
+    router.push(`/pokemon/${searchValue}`);
     setSearch('');
   }
   return (

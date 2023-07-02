@@ -1,0 +1,8 @@
+.main {
+  min-height: 100vh;
+}
+
+.mainContentWrapper {
+  border: 1px solid red;
+  margin-top: 150px;
+}

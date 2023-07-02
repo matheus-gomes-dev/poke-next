@@ -1,5 +1,7 @@
+import { NUMBER_OF_FIRST_GENERATION_POKEMONS } from "@/constants";
 import { IPokemonGenericInformation } from "@/types";
 import { fetchPokemons } from "@/utils";
+import { isEmpty } from "lodash";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
 export interface IPokemonContext {
@@ -12,13 +14,13 @@ const Context = createContext<IPokemonContext | null>(null);
 
 export function PokemonsProvider({ children }: PropsWithChildren): JSX.Element {
   const [pokemons, setPokemons] = useState<IPokemonGenericInformation[]>([]);
-  const [offset, setOffset] = useState<number>(150);
+  const [offset, setOffset] = useState<number>(NUMBER_OF_FIRST_GENERATION_POKEMONS);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadMorePokemons = async () => {
     setIsLoading(true);
     try {
-      const newPokemons = await fetchPokemons(offset, 60);
+      const newPokemons = await fetchPokemons(offset, isEmpty(pokemons) ? 59 : 60);
       setIsLoading(false);
       setOffset(offset + newPokemons.length);
       setPokemons([...pokemons, ...newPokemons]);

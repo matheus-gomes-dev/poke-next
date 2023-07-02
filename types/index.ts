@@ -17,6 +17,30 @@ export interface IGetPokemonsResponse {
   results: IPokemonGenericResult[];
 }
 
-// interface Data {
-//   [key: string]: string | number | undefined | null;
-// }
+interface IPokemonAPIAttribute {
+  name: string;
+  url: string;
+}
+
+interface IVersionGroupDetail {
+  level_learned_at: number;
+  move_learn_method: IPokemonAPIAttribute;
+  version_group: IPokemonAPIAttribute;
+}
+
+export interface IPokemonType {
+  slot: number;
+  type: IPokemonAPIAttribute;
+}
+
+export interface IPokemonMove {
+  move: IPokemonAPIAttribute;
+  version_group_details: IVersionGroupDetail[];
+}
+
+export interface IPokemonDetails extends IPokemonGenericInformation {
+  weight: number;
+  height: number;
+  types: string[];
+  moves: string[];
+}
