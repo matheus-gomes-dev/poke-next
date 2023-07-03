@@ -1,0 +1,13 @@
+.main {
+  min-height: 100vh;
+}
+
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 200px;
+  height: 230px;
+  font-size: 30px;
+}
