@@ -8,14 +8,13 @@ import {
 } from "@/types";
 import { compact } from 'lodash';
 
-// const API_POKEMON_COUNT = 1281;
 const MAX_GIFS_LIMIT = 649;
-const MAX_IMAGES_LIMIT = 905;
+const MAX_HIGH_QUALITY_IMAGES_LIMIT = 905;
 
 export const getPokemonAssets = (id: number | string): { imageUrl: string; animationUrl: string } => {
   const idNumber = Number(id);
   const threeDigitsId = ('000' + idNumber).slice(-3);
-  const imageUrl = `${process.env.POKEMON_IMAGES_URL}/${threeDigitsId}.png`;
+  const imageUrl = idNumber <= MAX_HIGH_QUALITY_IMAGES_LIMIT ? `${process.env.POKEMON_IMAGES_URL}/${threeDigitsId}.png` : `${process.env.POKEMON_IMAGES_LOW_QUALITY_URL}/${idNumber}.png`;
   const animationUrl = idNumber <= MAX_GIFS_LIMIT ? `${process.env.POKEMON_ANIMATED_GIF_URL}/${id}.gif` : imageUrl;
   return { imageUrl, animationUrl };
 }
