@@ -25,7 +25,7 @@ const Header = (): React.ReactElement => {
           </div>
           <div className={styles.searchBar}>
             <input
-              placeholder='Search Pokémon'
+              placeholder='Search by name or ID'
               value={searchValue}
               type='text'
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}
