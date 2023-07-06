@@ -14,7 +14,7 @@ const Header = (): React.ReactElement => {
     setSearch('');
   }
   return (
-    <nav>
+    <nav data-cy='navbar'>
       <div className={styles.mainContainer}>
         <div className={styles.contentWrapper}>
           <div className={styles.logoContainer} onClick={() => router.push('/')}>

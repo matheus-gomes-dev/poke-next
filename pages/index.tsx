@@ -53,6 +53,7 @@ export default function Home({ pokemons }: IHomeProps) {
           <button
             disabled={isLoading}
             onClick={() => loadMorePokemons()}
+            data-cy='load-more-btn'
           >
             Load more
           </button>

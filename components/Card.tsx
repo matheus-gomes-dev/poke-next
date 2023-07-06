@@ -11,7 +11,7 @@ interface ICardProps {
 };
 
 const Card = ({ name, id, imageUrl, animationUrl }: ICardProps): React.ReactElement => (
-  <article className={styles.cardContainer}>
+  <article className={styles.cardContainer} data-cy='pokemon-card'>
     <div className={styles.contentWrapper}>
       <div className={styles.pokemonNumberWrapper}>
         <PokemonId id={id} />
