@@ -33,7 +33,7 @@ export const mapPokemonInformation = (
   });
 };
 
-export const fetchPokemons = async (offset: number, limit = 60) => {
+export const fetchPokemons = async (offset: number, limit = 60): Promise<IPokemonGenericInformation[]> => {
   const apiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon?offset=${offset}&limit=${limit}`);
   const response = await apiResponse.json() as IGetPokemonsResponse;
   const pokemons = response.results.map(mapPokemonInformation);
