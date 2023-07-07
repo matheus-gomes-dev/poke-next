@@ -30,13 +30,14 @@ const Header = (): React.ReactElement => {
               type='text'
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}
               onKeyUp={handleKeyPress}
+              data-cy="navbar-search-input"
             />
           </div>
           <ul className={styles.navigationContainer}>
-            <li>
+            <li data-cy='home-navigation-link'>
               <Link href='/'>Home</Link>
             </li>
-            <li>
+            <li data-cy='about-navigation-link'>
               <Link href='/about'>About</Link>
             </li>
           </ul>
