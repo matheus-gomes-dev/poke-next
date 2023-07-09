@@ -40,15 +40,17 @@ export const fetchPokemons = async (offset: number, limit = 60): Promise<IPokemo
   return pokemons;
 };
 
+export const getPokemonMoves = (moves: IPokemonMove[]): string[] => compact(moves.map((pokemonMove: IPokemonMove) => {
+  const pokemonKnowsMove = (pokemonMove.version_group_details ?? []).some(item => item.level_learned_at > 0);
+  return pokemonKnowsMove ? pokemonMove.move.name : null;
+}));
+
 export const getPokemonDetails = async (slug: string | number): Promise<IPokemonDetails> => {
   const apiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon/${slug}`);
   const response = await apiResponse.json();
   const id = response.id;
   const { imageUrl, animationUrl } = getPokemonAssets(id);
-  const moves = compact(response.moves.map((pokemonMove: IPokemonMove) => {
-    const pokemonKnowsMove = (pokemonMove.version_group_details ?? []).some(item => item.level_learned_at > 0);
-    return pokemonKnowsMove ? pokemonMove.move.name : null;
-  })) as string[];
+  const moves = getPokemonMoves(response.moves);
   const details = {
     name: response.name,
     id,

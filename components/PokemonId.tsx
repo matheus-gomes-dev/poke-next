@@ -5,7 +5,7 @@ interface IPokemonIdProps {
 }
 
 const PokemonId = ({ id }: IPokemonIdProps): React.ReactElement => (
-  <div className={styles.pokemonId}>
+  <div className={styles.pokemonId} data-cy="pokemon-id">
     <span>{`#${id}`}</span>
   </div>
 );
