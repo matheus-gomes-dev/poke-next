@@ -1,4 +1,4 @@
-describe('Home', () => {
+describe('Home Page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:4000/');
     cy.intercept('https://pokeapi.co/api/v2/pokemon?offset=151&limit=59').as('loadMorePokemons');
