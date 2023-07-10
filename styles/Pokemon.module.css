@@ -85,6 +85,12 @@
   border-right: 1px solid white;
 }
 
+.about {
+  margin-top: 30px;
+  width: 90%;
+  text-align: justify;
+}
+
 .moves {
   margin-top: 30px;
   width: 90%;

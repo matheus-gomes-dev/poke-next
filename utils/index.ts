@@ -5,8 +5,9 @@ import {
   IPokemonType,
   IPokemonMove,
   IPokemonDetails,
+  IPokemonSpecieResponse,
 } from "@/types";
-import { compact } from 'lodash';
+import { compact, uniq } from 'lodash';
 
 const MAX_GIFS_LIMIT = 649;
 const MAX_HIGH_QUALITY_IMAGES_LIMIT = 905;
@@ -45,12 +46,22 @@ export const getPokemonMoves = (moves: IPokemonMove[]): string[] => compact(move
   return pokemonKnowsMove ? pokemonMove.move.name : null;
 }));
 
+export const mapSpecieResponse = (specieResponse: IPokemonSpecieResponse): string[] => (
+  uniq(compact(specieResponse.flavor_text_entries
+    .filter(entry => entry?.flavor_text && entry?.language?.name === 'en')
+    .map(entry => (entry?.flavor_text ?? '').replaceAll('\n', ' ').replaceAll('\f', ' '))))
+    .slice(0, 3)
+);
+
 export const getPokemonDetails = async (slug: string | number): Promise<IPokemonDetails> => {
   const apiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon/${slug}`);
   const response = await apiResponse.json();
   const id = response.id;
   const { imageUrl, animationUrl } = getPokemonAssets(id);
   const moves = getPokemonMoves(response.moves);
+  const specieApiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon-species/${id}`);
+  const specieResponse = await specieApiResponse.json() as IPokemonSpecieResponse;
+  const about = mapSpecieResponse(specieResponse);
   const details = {
     name: response.name,
     id,
@@ -60,6 +71,7 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
     height: response.height * 10,
     types: (response.types ?? []).map((pokemonType: IPokemonType) => pokemonType.type.name),
     moves,
+    about,
   };
   return details;
 }

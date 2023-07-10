@@ -1,14 +1,17 @@
-import { IPokemonDetails, IPokemonMove } from "@/types";
-import { getPokemonMoves } from "../../../../utils";
+import { IPokemonDetails, IPokemonMove, IPokemonSpecieResponse } from "@/types";
+import { getPokemonMoves, mapSpecieResponse } from "../../../../utils";
 import { capitalize } from "lodash";
 
 describe('Pokemon Details', () => {
   let pokemonDetails = {} as IPokemonDetails;
+  let pokemonSpecie = {} as IPokemonSpecieResponse;
   beforeEach(() => {
     cy.visit('http://localhost:4000/pokemon/pikachu');
-    cy.intercept('https://pokeapi.co/api/v2/pokemon/pikachu').as('loadPokemonDetails');
     cy.fixture('pokemonDetails').then((data) => {
       pokemonDetails = data;
+    });
+    cy.fixture('pokemonSpecie').then((data) => {
+      pokemonSpecie = data;
     });
   });
 
@@ -47,6 +50,11 @@ describe('Pokemon Details', () => {
 
   it("should have pokemon's weight", () => {
     cy.get('[data-cy="pokemon-details-weight"]').contains(pokemonDetails.weight / 10);
+  });
+
+  it("should have pokemon's about information", () => {
+    const specieData = mapSpecieResponse(pokemonSpecie);
+    cy.get('[data-cy="pokemon-details-about"]').contains(specieData.join(' '));
   });
 
   it("should have pokemon's moves", () => {

@@ -17,6 +17,20 @@ export interface IGetPokemonsResponse {
   results: IPokemonGenericResult[];
 }
 
+interface ITextEntry {
+  flavor_text: string;
+  language: IPokemonGenericResult;
+  version: IPokemonGenericResult;
+}
+
+export interface IPokemonSpecieResponse {
+  evolution_chain: {
+    url: string;
+  };
+  evolves_from_species: null | IPokemonGenericResult;
+  flavor_text_entries: ITextEntry[];
+}
+
 interface IPokemonAPIAttribute {
   name: string;
   url: string;
@@ -43,4 +57,5 @@ export interface IPokemonDetails extends IPokemonGenericInformation {
   height: number;
   types: string[];
   moves: string[];
+  about: string[];
 }

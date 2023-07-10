@@ -91,6 +91,9 @@ const PokemonDetails = ({ pokemonDetails }: IPokemonDetailsProps) => (
             <div>{`${pokemonDetails.weight}kg`}</div>
           </div>
         </div>
+        <div className={styles.about} data-cy="pokemon-details-about">
+          <span><b>About: </b><i>{pokemonDetails.about.join(' ')}</i></span>
+        </div>
         <div className={styles.moves} data-cy="pokemon-details-moves">
           <span><b>Moves: </b><i>{pokemonDetails.moves.join(', ')}</i></span>
         </div>
