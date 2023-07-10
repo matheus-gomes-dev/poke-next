@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
 import { range } from 'lodash';
 import { NUMBER_OF_FIRST_GENERATION_POKEMONS } from '@/constants';
@@ -8,6 +9,7 @@ import { IPokemonDetails } from '@/types';
 import styles from '@/styles/Pokemon.module.css';
 import Image from 'next/image';
 import PokemonId from '@/components/PokemonId';
+import { capitalize } from 'lodash';
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -40,53 +42,61 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const PokemonDetails = ({ pokemonDetails }: IPokemonDetailsProps) => (
-  <main className={styles.main}>
-    <article className={styles.mainContentWrapper}>
-      <div className={styles.headerContainer}>
-        <div data-cy="pokemon-details-name">{`${pokemonDetails.name}`}</div>
-        <PokemonId id={pokemonDetails.id}/>
-      </div>
-      <div className={styles.imageContainer}>
-        <Image
-          src={pokemonDetails.imageUrl}
-          width={320}
-          height={320}
-          alt="Pokémon image"
-          data-cy="pokemon-details-image"
-        />
-      </div>
-      <div className={styles.typesContainer}>
-        <h2>{pokemonDetails.types.length > 1 ? 'Types:' : 'Type:'}</h2>
-        <div className={styles.typesLabels}>
-          {pokemonDetails.types.map((type, index) => (
-            <div className={styles[`type-${type}`]} key={`${pokemonDetails.id}-type-${index}`}>{type}</div>
-          ))}
+  <>
+    <Head>
+      <title data-cy="page-title">{`PokéNext - ${capitalize(pokemonDetails.name)}`}</title>
+      <meta name="description" content="A pokedex like app, built with Next.js" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+    <main className={styles.main}>
+      <article className={styles.mainContentWrapper}>
+        <div className={styles.headerContainer}>
+          <div data-cy="pokemon-details-name">{`${pokemonDetails.name}`}</div>
+          <PokemonId id={pokemonDetails.id}/>
         </div>
-      </div>
-      <div className={styles.animationContainer}>
-        <Image
-          src={pokemonDetails.animationUrl}
-          width={50}
-          height={50}
-          alt="Pokémon animation"
-          data-cy="pokemon-details-animation"
-        />
-      </div>
-      <div className={styles.informationContainer}>
-        <div className={styles.information} data-cy="pokemon-details-height">
-          <span><b>Height:</b></span>
-          <div>{`${pokemonDetails.height}cm`}</div>
+        <div className={styles.imageContainer}>
+          <Image
+            src={pokemonDetails.imageUrl}
+            width={320}
+            height={320}
+            alt="Pokémon image"
+            data-cy="pokemon-details-image"
+          />
         </div>
-        <div className={styles.information} data-cy="pokemon-details-weight">
-          <span><b>Weight:</b></span>
-          <div>{`${pokemonDetails.weight}kg`}</div>
+        <div className={styles.typesContainer}>
+          <h2>{pokemonDetails.types.length > 1 ? 'Types:' : 'Type:'}</h2>
+          <div className={styles.typesLabels}>
+            {pokemonDetails.types.map((type, index) => (
+              <div className={styles[`type-${type}`]} key={`${pokemonDetails.id}-type-${index}`}>{type}</div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className={styles.moves} data-cy="pokemon-details-moves">
-        <span><b>Moves: </b><i>{pokemonDetails.moves.join(', ')}</i></span>
-      </div>
-    </article>
-  </main>
+        <div className={styles.animationContainer}>
+          <Image
+            src={pokemonDetails.animationUrl}
+            width={50}
+            height={50}
+            alt="Pokémon animation"
+            data-cy="pokemon-details-animation"
+          />
+        </div>
+        <div className={styles.informationContainer}>
+          <div className={styles.information} data-cy="pokemon-details-height">
+            <span><b>Height:</b></span>
+            <div>{`${pokemonDetails.height}cm`}</div>
+          </div>
+          <div className={styles.information} data-cy="pokemon-details-weight">
+            <span><b>Weight:</b></span>
+            <div>{`${pokemonDetails.weight}kg`}</div>
+          </div>
+        </div>
+        <div className={styles.moves} data-cy="pokemon-details-moves">
+          <span><b>Moves: </b><i>{pokemonDetails.moves.join(', ')}</i></span>
+        </div>
+      </article>
+    </main>
+  </>
 );
 
 export default PokemonDetails;

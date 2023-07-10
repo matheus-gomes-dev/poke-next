@@ -5,6 +5,10 @@ describe('Home Page', () => {
     cy.get('[data-cy="load-more-btn"]').as('loadMoreBtn');
   });
 
+  it('should have a page title', () => {
+    cy.get('[data-cy="page-title"]').contains('PokéNext');
+  });
+
   it('should have a navbar', () => {
     cy.get('[data-cy="navbar"]').contains('PokéNext');
   });

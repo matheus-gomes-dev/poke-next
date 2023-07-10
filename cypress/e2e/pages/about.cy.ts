@@ -3,6 +3,10 @@ describe('About Page', () => {
     cy.visit('http://localhost:4000/about');
   });
 
+  it('should have a page title with "About"', () => {
+    cy.get('[data-cy="page-title"]').contains('PokéNext - About');
+  });
+
   it('should have a navbar', () => {
     cy.get('[data-cy="navbar"]').contains('PokéNext');
   });

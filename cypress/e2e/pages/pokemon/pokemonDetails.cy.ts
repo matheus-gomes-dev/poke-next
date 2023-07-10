@@ -1,5 +1,6 @@
 import { IPokemonDetails, IPokemonMove } from "@/types";
 import { getPokemonMoves } from "../../../../utils";
+import { capitalize } from "lodash";
 
 describe('Pokemon Details', () => {
   let pokemonDetails = {} as IPokemonDetails;
@@ -9,6 +10,10 @@ describe('Pokemon Details', () => {
     cy.fixture('pokemonDetails').then((data) => {
       pokemonDetails = data;
     });
+  });
+
+  it("should have a page title with pokémon's name", () => {
+    cy.get('[data-cy="page-title"]').contains(`PokéNext - ${capitalize(pokemonDetails.name)}`);
   });
 
   it('should have a navbar', () => {
