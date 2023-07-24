@@ -20,7 +20,7 @@ const About = () => (
           data-cy="professor-oak-img"
         />
         <section className={styles.textContainer} data-cy="about-section-0">
-          PokéNext is a pokedex like app built with <a className={styles.link} href="https://nextjs.org/" target='_blank'>Next.js</a> by <a className={styles.link} href="https://www.linkedin.com/in/matheus-lima-923501a8/" target='_blank'>Matheus Gomes.</a>
+          PokéNext is a pokedex like app built with <a className={styles.link} href="https://nextjs.org/" target='_blank'>Next.js</a> by <a className={styles.link} href="https://www.linkedin.com/in/matheus-gomes-923501a8/" target='_blank'>Matheus Gomes.</a>
         </section>
         <section className={styles.textContainer} data-cy="about-section-1">
           It consumes data from <a className={styles.link} href="https://pokeapi.co/" target='_blank'>PokéApi</a>, a RESTful API to highly detailed objects built from thousands of lines of data related to Pokémon.
