@@ -134,8 +134,6 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
   const evolutionChain = getEvolutionChain(evolutionChainResponse.chain);
   const evolvesFrom = getEvolvesFrom(evolutionChain, id);
   const evolvesTo = getEvolvesTo(evolutionChain, id);
-  console.log('evolvesFrom', evolvesFrom);
-  console.log('evolvesTo', evolvesTo);
   const about = mapSpecieResponse(specieResponse);
   const details = {
     name: response.name,

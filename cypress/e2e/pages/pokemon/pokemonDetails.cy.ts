@@ -52,6 +52,14 @@ describe('Pokemon Details', () => {
     cy.get('[data-cy="pokemon-details-weight"]').contains(pokemonDetails.weight / 10);
   });
 
+  it("should have link to pokemon evolves from", () => {
+    cy.get('[data-cy="pokemon-evolves-from"]').contains('a', 'Pichu');
+  });
+
+  it("should have link to pokemon evolves to", () => {
+    cy.get('[data-cy="pokemon-evolves-to"]').contains('a', 'Raichu');
+  });
+
   it("should have pokemon's about information", () => {
     const specieData = mapSpecieResponse(pokemonSpecie);
     cy.get('[data-cy="pokemon-details-about"]').contains(specieData.join(' '));

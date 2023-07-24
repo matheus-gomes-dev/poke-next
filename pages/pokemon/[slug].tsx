@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps } from 'next'
-import { range } from 'lodash';
+import { isEmpty, range, startCase } from 'lodash';
 import { NUMBER_OF_FIRST_GENERATION_POKEMONS } from '@/constants';
 import { ParsedUrlQuery } from 'querystring';
 import { getPokemonDetails } from '@/utils';
@@ -10,6 +10,7 @@ import styles from '@/styles/Pokemon.module.css';
 import Image from 'next/image';
 import PokemonId from '@/components/PokemonId';
 import { capitalize } from 'lodash';
+import Link from 'next/link';
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -72,7 +73,7 @@ const PokemonDetails = ({ pokemonDetails }: IPokemonDetailsProps) => (
             ))}
           </div>
         </div>
-        <div className={styles.animationContainer}>
+        <div className={styles.overviewContainer}>
           <Image
             src={pokemonDetails.animationUrl}
             width={50}
@@ -80,17 +81,35 @@ const PokemonDetails = ({ pokemonDetails }: IPokemonDetailsProps) => (
             alt="Pokémon animation"
             data-cy="pokemon-details-animation"
           />
-        </div>
-        <div className={styles.informationContainer}>
-          <div className={styles.information} data-cy="pokemon-details-height">
-            <span><b>Height:</b></span>
-            <div>{`${pokemonDetails.height}cm`}</div>
+          <div className={styles.informationContainer}>
+            <div className={styles.information} data-cy="pokemon-details-height">
+              <span><b>Height:</b></span>
+              <div>{`${pokemonDetails.height}cm`}</div>
+            </div>
+            <div className={styles.information} data-cy="pokemon-details-weight">
+              <span><b>Weight:</b></span>
+              <div>{`${pokemonDetails.weight}kg`}</div>
+            </div>
           </div>
-          <div className={styles.information} data-cy="pokemon-details-weight">
-            <span><b>Weight:</b></span>
-            <div>{`${pokemonDetails.weight}kg`}</div>
-          </div>
         </div>
+        {pokemonDetails.evolvesFrom?.id && <div className={styles.evolvesFrom}>
+          <span><b>Evolves from: </b></span>
+          <span className={styles.pokemonLink} data-cy="pokemon-evolves-from">
+            <Link href={`/pokemon/${pokemonDetails.evolvesFrom.id}`}>
+              {startCase(pokemonDetails.evolvesFrom.name)}
+            </Link>
+          </span>
+        </div>}
+        {!isEmpty(pokemonDetails.evolvesTo) && <div className={styles.evolvesTo}>
+          <span><b>Evolves to: </b></span>
+          {pokemonDetails.evolvesTo.map(evolvesToItem => (
+            <span className={styles.pokemonLink} key={`evolves-to-${evolvesToItem.id}`} data-cy="pokemon-evolves-to">
+              <Link href={`/pokemon/${evolvesToItem.id}`}>
+                {startCase(evolvesToItem.name)}
+              </Link>
+            </span>
+          ))}
+        </div>}
         <div className={styles.about} data-cy="pokemon-details-about">
           <span><b>About: </b><i>{pokemonDetails.about.join(' ')}</i></span>
         </div>

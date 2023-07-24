@@ -59,7 +59,7 @@ export interface IPokemonDetails extends IPokemonGenericInformation {
   moves: string[];
   about: string[];
   evolvesTo: IPokemonEvolutionChain[];
-  evolvesFrom: IPokemonEvolutionChain | {};
+  evolvesFrom: IPokemonEvolutionChain;
 }
 
 
