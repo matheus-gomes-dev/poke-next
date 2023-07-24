@@ -74,7 +74,7 @@ export const getEvolutionChain = (payload: IChainNode): IPokemonEvolutionChain =
   return { name, id, evolvesTo };
 }
 
-export const getEvolvesFrom = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonGenericInformation | {} => {
+export const getEvolvesFrom = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonEvolutionChain => {
   let result = {};
 
   const isNextEvolution = (chain: IPokemonEvolutionChain): boolean =>
@@ -98,8 +98,8 @@ export const getEvolvesFrom = (evolutionChain: IPokemonEvolutionChain, id: numbe
   return result;
 };
 
-export const getEvolvesTo = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonGenericInformation[] => {
-  let result = [] as IPokemonGenericInformation[];
+export const getEvolvesTo = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonEvolutionChain[] => {
+  let result = [] as IPokemonEvolutionChain[];
 
   const isTargetPokemon = (chain: IPokemonEvolutionChain): boolean => id === chain.id;
 
