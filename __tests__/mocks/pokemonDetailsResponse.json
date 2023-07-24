@@ -1,0 +1,66 @@
+{
+  "name": "butterfree",
+  "id": 12,
+  "weight": 320,
+  "height": 11,
+  "moves": [
+    {
+      "move": {
+        "name": "bug-bite",
+        "url": "https://pokeapi.co/api/v2/move/450/"
+      },
+      "version_group_details": [
+        {
+          "level_learned_at": 0
+        },
+        {
+          "level_learned_at": 1
+        }
+      ]
+    },
+    {
+      "move": {
+        "name": "sleep powder",
+        "url": "https://pokeapi.co/api/v2/move/333/"
+      },
+      "version_group_details": [
+        {
+          "level_learned_at": 1
+        },
+        {
+          "level_learned_at": 0
+        }
+      ]
+    },
+    {
+      "move": {
+        "name": "tackle",
+        "url": "https://pokeapi.co/api/v2/move/543/"
+      },
+      "version_group_details": [
+        {
+          "level_learned_at": 0
+        },
+        {
+          "level_learned_at": 0
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "slot": 1,
+      "type": {
+        "name": "bug",
+        "url": "https://pokeapi.co/api/v2/type/7/"
+      }
+    },
+    {
+      "slot": 2,
+      "type": {
+        "name": "flying",
+        "url": "https://pokeapi.co/api/v2/type/3/"
+      }
+    }
+  ]
+}

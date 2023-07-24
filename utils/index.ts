@@ -6,8 +6,11 @@ import {
   IPokemonMove,
   IPokemonDetails,
   IPokemonSpecieResponse,
+  IEvolutionChainPayload,
+  IPokemonEvolutionChain,
+  IChainNode,
 } from "@/types";
-import { compact, uniq } from 'lodash';
+import { compact, isEmpty, uniq } from 'lodash';
 
 const MAX_GIFS_LIMIT = 649;
 const MAX_HIGH_QUALITY_IMAGES_LIMIT = 905;
@@ -20,11 +23,16 @@ export const getPokemonAssets = (id: number | string): { imageUrl: string; anima
   return { imageUrl, animationUrl };
 }
 
+const getIdFromUrl = (url: string): number=> {
+  if (!url) return 0;
+  const splittedUrl = compact(url.split('/'));
+  return Number(splittedUrl[splittedUrl.length - 1]);
+}
+
 export const mapPokemonInformation = (
   pokemonInfo: IPokemonGenericResult,
 ): IPokemonGenericInformation => {
-  const splittedPokemonUrl = compact(pokemonInfo.url.split('/'));
-  const id = Number(splittedPokemonUrl[splittedPokemonUrl.length - 1]);
+  const id = getIdFromUrl(pokemonInfo.url);
   const { imageUrl, animationUrl } = getPokemonAssets(id);
   return ({
     name: pokemonInfo.name,
@@ -41,7 +49,7 @@ export const fetchPokemons = async (offset: number, limit = 60): Promise<IPokemo
   return pokemons;
 };
 
-export const getPokemonMoves = (moves: IPokemonMove[]): string[] => compact(moves.map((pokemonMove: IPokemonMove) => {
+export const getPokemonMoves = (moves: IPokemonMove[]): string[] => compact(moves?.map((pokemonMove: IPokemonMove) => {
   const pokemonKnowsMove = (pokemonMove.version_group_details ?? []).some(item => item.level_learned_at > 0);
   return pokemonKnowsMove ? pokemonMove.move.name : null;
 }));
@@ -53,6 +61,66 @@ export const mapSpecieResponse = (specieResponse: IPokemonSpecieResponse): strin
     .slice(0, 3)
 );
 
+export const getEvolutionChain = (payload: IChainNode): IPokemonEvolutionChain => {
+  const name = payload.species.name;
+  const id = getIdFromUrl(payload.species.url);
+  if (isEmpty(payload.evolves_to)) return { name, id, evolvesTo: []};
+  const evolvesTo = payload.evolves_to
+    .map(item => ({
+      name: item.species.name,
+      id: getIdFromUrl(item.species.url),
+      evolvesTo: (item.evolves_to ?? []).map(evolutionPayload => getEvolutionChain(evolutionPayload)),
+    }));
+  return { name, id, evolvesTo };
+}
+
+export const getEvolvesFrom = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonGenericInformation | {} => {
+  let result = {};
+
+  const isNextEvolution = (chain: IPokemonEvolutionChain): boolean =>
+    (chain.evolvesTo ?? []).some(pokemon => pokemon.id === id);
+
+  const searchEvolvesTo = (evolvesTo: IPokemonEvolutionChain[]) => {
+    evolvesTo.forEach(item => {
+      if (!isEmpty(result)) return;
+      if (isNextEvolution(item)) {
+        result = { name: item.name as string , id: item.id as number };
+        return;
+      }
+      if (!isEmpty(item.evolvesTo)) searchEvolvesTo(item.evolvesTo ?? []);
+    });
+  };
+
+  if (isNextEvolution(evolutionChain)) {
+    return { name: evolutionChain?.name as string , id: evolutionChain.id as number };
+  }
+  searchEvolvesTo(evolutionChain.evolvesTo ?? []);
+  return result;
+};
+
+export const getEvolvesTo = (evolutionChain: IPokemonEvolutionChain, id: number): IPokemonGenericInformation[] => {
+  let result = [] as IPokemonGenericInformation[];
+
+  const isTargetPokemon = (chain: IPokemonEvolutionChain): boolean => id === chain.id;
+
+  const searchEvolvesTo = (evolvesTo: IPokemonEvolutionChain[]) => {
+    evolvesTo.forEach(item => {
+      if (!isEmpty(result)) return;
+      if (isTargetPokemon(item)) {
+        result = (item.evolvesTo ?? []).map(item => ({ name: item.name as string, id: item.id as number }));
+        return;
+      }
+      if (!isEmpty(item.evolvesTo)) searchEvolvesTo(item.evolvesTo ?? []);
+    });
+  };
+
+  if (isTargetPokemon(evolutionChain)) {
+    return (evolutionChain.evolvesTo ?? []).map(item => ({ name: item.name as string, id: item.id as number }));
+  }
+  searchEvolvesTo(evolutionChain.evolvesTo ?? []);
+  return result;
+}
+
 export const getPokemonDetails = async (slug: string | number): Promise<IPokemonDetails> => {
   const apiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon/${slug}`);
   const response = await apiResponse.json();
@@ -61,6 +129,13 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
   const moves = getPokemonMoves(response.moves);
   const specieApiResponse = await fetch(`${process.env.POKE_API_URL}/pokemon-species/${id}`);
   const specieResponse = await specieApiResponse.json() as IPokemonSpecieResponse;
+  const evolutionChainApiResponse = await fetch(specieResponse.evolution_chain.url);
+  const evolutionChainResponse = await evolutionChainApiResponse.json() as IEvolutionChainPayload;
+  const evolutionChain = getEvolutionChain(evolutionChainResponse.chain);
+  const evolvesFrom = getEvolvesFrom(evolutionChain, id);
+  const evolvesTo = getEvolvesTo(evolutionChain, id);
+  console.log('evolvesFrom', evolvesFrom);
+  console.log('evolvesTo', evolvesTo);
   const about = mapSpecieResponse(specieResponse);
   const details = {
     name: response.name,
@@ -70,6 +145,8 @@ export const getPokemonDetails = async (slug: string | number): Promise<IPokemon
     weight: response.weight / 10,
     height: response.height * 10,
     types: (response.types ?? []).map((pokemonType: IPokemonType) => pokemonType.type.name),
+    evolvesFrom,
+    evolvesTo,
     moves,
     about,
   };

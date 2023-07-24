@@ -1,184 +1,14 @@
 import * as utils from '@/utils';
+import fakeFetchPokemonsApiResponse from '../mocks/fetchPokemonsResponse.json';
+import fakePokemonDetailsApiResponse from '../mocks/pokemonDetailsResponse.json';
+import fakeSpecieApiResponse from '../mocks/pokemonSpecieResponse.json';
+import pikachuEvolutionChain from '../mocks/pikachuEvolutionChainResponse.json';
+import caterpieEvolutionChain from '../mocks/caterpieEvolutionChainResponse.json';
+import eeveeEvolutionChain from '../mocks/eeveeEvolutionChainResponse.json';
+
 
 global.fetch = jest.fn();
 
-const fakeFetchPokemonsApiResponse = [
-  {
-    name: 'fake-pokemon-name-1',
-    url: 'https://pokeapi.co/api/v2/pokemon/1/'
-  },
-  {
-    name: 'fake-pokemon-name-2',
-    url: 'https://pokeapi.co/api/v2/pokemon/2/'
-  },
-];
-
-const fakePokemonDetailsApiResponse = {
-  "name": "butterfree",
-  "id": 12,
-  "weight": 320,
-  "height": 11,
-  "moves": [
-    {
-      "move": {
-        "name": "bug-bite",
-        "url": "https://pokeapi.co/api/v2/move/450/"
-      },
-      "version_group_details": [
-        {
-          "level_learned_at": 0,
-        },
-        {
-          "level_learned_at": 1,
-        }
-      ]
-    },
-    {
-      "move": {
-        "name": "sleep powder",
-        "url": "https://pokeapi.co/api/v2/move/333/"
-      },
-      "version_group_details": [
-        {
-          "level_learned_at": 1,
-        },
-        {
-          "level_learned_at": 0,
-        }
-      ]
-    },
-    {
-      "move": {
-        "name": "tackle",
-        "url": "https://pokeapi.co/api/v2/move/543/"
-      },
-      "version_group_details": [
-        {
-          "level_learned_at": 0,
-        },
-        {
-          "level_learned_at": 0,
-        }
-      ]
-    },
-  ],
-  "types": [
-    {
-      "slot": 1,
-      "type": {
-        "name": "bug",
-        "url": "https://pokeapi.co/api/v2/type/7/"
-      }
-    },
-    {
-      "slot": 2,
-      "type": {
-        "name": "flying",
-        "url": "https://pokeapi.co/api/v2/type/3/"
-      }
-    }
-  ]
-};
-
-const fakeSpecieApiResponse = {
-  "evolution_chain": {
-    "url": "https://pokeapi.co/api/v2/evolution-chain/4/"
-  },
-  "evolves_from_species": {
-    "name": "metapod",
-    "url": "https://pokeapi.co/api/v2/pokemon-species/11/"
-  },
-  "flavor_text_entries": [
-    {
-      "flavor_text": "In battle, it\nflaps its wings\nat high speed to\frelease highly\ntoxic dust into\nthe air.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "red",
-        "url": "https://pokeapi.co/api/v2/version/1/"
-      }
-    },
-    {
-      "flavor_text": "Il raffole du nectar des fleurs. Il est capable de repérer la plus petite quantité de pollen.",
-      "language": {
-        "name": "fr",
-        "url": "https://pokeapi.co/api/v2/language/5/"
-      },
-      "version": {
-        "name": "white",
-        "url": "https://pokeapi.co/api/v2/version/18/"
-      }
-    },
-    {
-      "flavor_text": "In battle, it\nflaps its wings\nat high speed to\frelease highly\ntoxic dust into\nthe air.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "blue",
-        "url": "https://pokeapi.co/api/v2/version/2/"
-      }
-    },
-    {
-      "flavor_text": "Its wings, covered\nwith poisonous\npowders, repel\fwater. This\nallows it to fly\nin the rain.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "yellow",
-        "url": "https://pokeapi.co/api/v2/version/3/"
-      }
-    },
-    {
-      "flavor_text": "It collects honey\nevery day. It rubs\nhoney onto the\fhairs on its legs\nto carry it back\nto its nest.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "gold",
-        "url": "https://pokeapi.co/api/v2/version/4/"
-      }
-    },
-    {
-      "flavor_text": "Water-repellent\npowder on its\nwings enables it\fto collect honey,\neven in the heav­\niest of rains.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "silver",
-        "url": "https://pokeapi.co/api/v2/version/5/"
-      }
-    },
-    {
-      "flavor_text": "It flits from\nflower to flower,\ncollecting honey.\fIt can even\nidentify distant\nflowers in bloom.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "crystal",
-        "url": "https://pokeapi.co/api/v2/version/6/"
-      }
-    },
-    {
-      "flavor_text": "BUTTERFREE has a superior ability to\nsearch for delicious honey from\nflowers.\fIt can even search out, extract, and\ncarry honey from flowers that are\nblooming over six miles from its nest.",
-      "language": {
-        "name": "en",
-        "url": "https://pokeapi.co/api/v2/language/9/"
-      },
-      "version": {
-        "name": "ruby",
-        "url": "https://pokeapi.co/api/v2/version/7/"
-      }
-    },
-  ],
-}
 describe('utils', () => {
   describe('getPokemonAssets', () => {
     it('should return different urls for high quality image and gif when id <= 649', () => {
@@ -262,6 +92,80 @@ describe('utils', () => {
     });
   });
 
+  describe('getEvolutionChain', () => {
+    it("should map Pikachu's evolution chain correctly", () => {
+      const result = utils.getEvolutionChain(pikachuEvolutionChain.chain);
+      expect(result).toEqual({
+        name: "pichu",
+        id: 172,
+        evolvesTo: [
+          {
+            name: "pikachu",
+            id: 25,
+            evolvesTo: [
+              {
+                name: "raichu",
+                id: 26,
+                evolvesTo: []
+              }
+            ]
+          }
+        ]
+      });
+    });
+
+    it("should map eevee's evolution chain correctly", () => {
+      const result = utils.getEvolutionChain(eeveeEvolutionChain.chain);
+      console.log(JSON.stringify(result));
+      expect(result).toEqual({
+        name: "eevee",
+        id: 133,
+        evolvesTo: [
+          {
+            name: "vaporeon",
+            id: 134,
+            evolvesTo: []
+          },
+          {
+            name: "jolteon",
+            id: 135,
+            evolvesTo: []
+          },
+          {
+            name: "flareon",
+            id: 136,
+            evolvesTo: []
+          },
+          {
+            name: "espeon",
+            id: 196,
+            evolvesTo: []
+          },
+          {
+            name: "umbreon",
+            id: 197,
+            evolvesTo: []
+          },
+          {
+            name: "leafeon",
+            id: 470,
+            evolvesTo: []
+          },
+          {
+            name: "glaceon",
+            id: 471,
+            evolvesTo: []
+          },
+          {
+            name: "sylveon",
+            id: 700,
+            evolvesTo: []
+          }
+        ]
+      });
+    });
+  });
+
   describe('getPokemonDetails', () => {
     beforeEach(() => {
       jest.spyOn(global, 'fetch')
@@ -270,9 +174,12 @@ describe('utils', () => {
         } as Response))
         .mockReturnValueOnce(Promise.resolve({
           json: () => Promise.resolve(fakeSpecieApiResponse),
+        } as Response))
+        .mockReturnValueOnce(Promise.resolve({
+          json: () => Promise.resolve(caterpieEvolutionChain),
         } as Response));
     });
-    
+
     it('should call PokéAPI to fetch individual pokemon details using id', async () => {
       await utils.getPokemonDetails(12);
       expect(global.fetch).toHaveBeenCalledWith(`${process.env.POKE_API_URL}/pokemon/12`);
@@ -315,6 +222,11 @@ describe('utils', () => {
         imageUrl: `${process.env.POKEMON_IMAGES_URL}/012.png`,
         animationUrl: `${process.env.POKEMON_ANIMATED_GIF_URL}/12.gif`,
         about: utils.mapSpecieResponse(fakeSpecieApiResponse),
+        evolvesFrom: {
+          id: 11,
+          name: 'metapod',
+        },
+        evolvesTo: [],
       });
     });
   });

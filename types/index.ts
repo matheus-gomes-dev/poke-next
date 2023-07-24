@@ -6,8 +6,8 @@ export interface IPokemonGenericResult {
 export interface IPokemonGenericInformation {
   name: string,
   id: number,
-  imageUrl: string,
-  animationUrl: string,
+  imageUrl?: string,
+  animationUrl?: string,
 };
 
 export interface IGetPokemonsResponse {
@@ -58,4 +58,22 @@ export interface IPokemonDetails extends IPokemonGenericInformation {
   types: string[];
   moves: string[];
   about: string[];
+  evolvesTo: IPokemonGenericInformation[];
+  evolvesFrom: IPokemonGenericInformation | {};
+}
+
+
+export interface IEvolutionChainPayload {
+  chain: IChainNode;
+}
+
+export interface IChainNode {
+  species: IPokemonAPIAttribute;
+  evolves_to: IChainNode[];
+}
+
+export interface IPokemonEvolutionChain {
+  name?: string;
+  id?: number;
+  evolvesTo?: IPokemonEvolutionChain[];
 }

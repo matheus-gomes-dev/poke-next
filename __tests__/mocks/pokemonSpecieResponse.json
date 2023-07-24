@@ -1,0 +1,99 @@
+{
+  "evolution_chain": {
+    "url": "https://pokeapi.co/api/v2/evolution-chain/4/"
+  },
+  "evolves_from_species": {
+    "name": "metapod",
+    "url": "https://pokeapi.co/api/v2/pokemon-species/11/"
+  },
+  "flavor_text_entries": [
+    {
+      "flavor_text": "In battle, it\nflaps its wings\nat high speed to\frelease highly\ntoxic dust into\nthe air.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "red",
+        "url": "https://pokeapi.co/api/v2/version/1/"
+      }
+    },
+    {
+      "flavor_text": "Il raffole du nectar des fleurs. Il est capable de repérer la plus petite quantité de pollen.",
+      "language": {
+        "name": "fr",
+        "url": "https://pokeapi.co/api/v2/language/5/"
+      },
+      "version": {
+        "name": "white",
+        "url": "https://pokeapi.co/api/v2/version/18/"
+      }
+    },
+    {
+      "flavor_text": "In battle, it\nflaps its wings\nat high speed to\frelease highly\ntoxic dust into\nthe air.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "blue",
+        "url": "https://pokeapi.co/api/v2/version/2/"
+      }
+    },
+    {
+      "flavor_text": "Its wings, covered\nwith poisonous\npowders, repel\fwater. This\nallows it to fly\nin the rain.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "yellow",
+        "url": "https://pokeapi.co/api/v2/version/3/"
+      }
+    },
+    {
+      "flavor_text": "It collects honey\nevery day. It rubs\nhoney onto the\fhairs on its legs\nto carry it back\nto its nest.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "gold",
+        "url": "https://pokeapi.co/api/v2/version/4/"
+      }
+    },
+    {
+      "flavor_text": "Water-repellent\npowder on its\nwings enables it\fto collect honey,\neven in the heav­\niest of rains.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "silver",
+        "url": "https://pokeapi.co/api/v2/version/5/"
+      }
+    },
+    {
+      "flavor_text": "It flits from\nflower to flower,\ncollecting honey.\fIt can even\nidentify distant\nflowers in bloom.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "crystal",
+        "url": "https://pokeapi.co/api/v2/version/6/"
+      }
+    },
+    {
+      "flavor_text": "BUTTERFREE has a superior ability to\nsearch for delicious honey from\nflowers.\fIt can even search out, extract, and\ncarry honey from flowers that are\nblooming over six miles from its nest.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      },
+      "version": {
+        "name": "ruby",
+        "url": "https://pokeapi.co/api/v2/version/7/"
+      }
+    }
+  ]
+}
