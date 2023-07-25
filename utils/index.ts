@@ -14,9 +14,16 @@ import { compact, isEmpty, uniq } from 'lodash';
 
 const MAX_GIFS_LIMIT = 649;
 const MAX_HIGH_QUALITY_IMAGES_LIMIT = 905;
+const MAX_LOW_QUALITY_IMAGES_LIMIT = 10157;
 
 export const getPokemonAssets = (id: number | string): { imageUrl: string; animationUrl: string } => {
   const idNumber = Number(id);
+  if (idNumber > MAX_LOW_QUALITY_IMAGES_LIMIT) {
+    return {
+      imageUrl: '/question-mark.png',
+      animationUrl: '/question-mark.png',
+    }
+  }
   const threeDigitsId = ('000' + idNumber).slice(-3);
   const imageUrl = idNumber <= MAX_HIGH_QUALITY_IMAGES_LIMIT ? `${process.env.POKEMON_IMAGES_URL}/${threeDigitsId}.png` : `${process.env.POKEMON_IMAGES_LOW_QUALITY_URL}/${idNumber}.png`;
   const animationUrl = idNumber <= MAX_GIFS_LIMIT ? `${process.env.POKEMON_ANIMATED_GIF_URL}/${id}.gif` : imageUrl;
