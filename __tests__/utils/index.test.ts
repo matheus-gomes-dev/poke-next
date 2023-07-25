@@ -29,6 +29,18 @@ describe('utils', () => {
       expect(result.animationUrl).toEqual(`${process.env.POKEMON_IMAGES_LOW_QUALITY_URL}/906.png`);
     });
 
+    it('should return question-mark image url when id = 10153', () => {
+      const result = utils.getPokemonAssets(10158);
+      expect(result.imageUrl).toEqual('/question-mark.png');
+      expect(result.animationUrl).toEqual('/question-mark.png');
+    });
+
+    it('should return question-mark image url when id = 10154', () => {
+      const result = utils.getPokemonAssets(10158);
+      expect(result.imageUrl).toEqual('/question-mark.png');
+      expect(result.animationUrl).toEqual('/question-mark.png');
+    });
+
     it('should return question-mark image url when id > 10157', () => {
       const result = utils.getPokemonAssets(10158);
       expect(result.imageUrl).toEqual('/question-mark.png');

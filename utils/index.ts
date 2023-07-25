@@ -18,7 +18,7 @@ const MAX_LOW_QUALITY_IMAGES_LIMIT = 10157;
 
 export const getPokemonAssets = (id: number | string): { imageUrl: string; animationUrl: string } => {
   const idNumber = Number(id);
-  if (idNumber > MAX_LOW_QUALITY_IMAGES_LIMIT) {
+  if (idNumber > MAX_LOW_QUALITY_IMAGES_LIMIT || idNumber === 10153 || idNumber === 10154) {
     return {
       imageUrl: '/question-mark.png',
       animationUrl: '/question-mark.png',
